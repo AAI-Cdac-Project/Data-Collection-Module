@@ -1,5 +1,0 @@
-Hello, how are you? | नमस्ते, आप कैसे हैं?
-Good morning. | शुभ प्रभात।
-What is your name? | आपका नाम क्या है?
-I am learning programming. | मैं प्रोग्रामिंग सीख रहा हूँ।
-Thank you very much. | आपका बहुत धन्यवाद।
