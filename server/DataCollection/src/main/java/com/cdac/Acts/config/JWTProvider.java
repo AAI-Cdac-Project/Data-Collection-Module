@@ -6,11 +6,14 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+
 import java.util.Date;
+
 
 @Component
 public class JWTProvider {
-    // Get the secret key and expiration time from the application.properties file
+
     @Value("${app.jwtSecret}")
     private String secretKey;
 
@@ -18,6 +21,7 @@ public class JWTProvider {
     private long expirationTime;
 
     // 1. Creation of JWT token
+    // Generate JWT Token with Role
     public String generateToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email) // Set email as the subject (user identifier)
@@ -67,6 +71,7 @@ public class JWTProvider {
                 .parseClaimsJws(token)
                 .getBody();
     }
+
 
     // 3. Check if the token is expired
     public boolean isTokenExpired(String token) {

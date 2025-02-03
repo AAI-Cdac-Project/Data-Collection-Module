@@ -1,28 +1,30 @@
 package com.cdac.Acts.dto;
 
 import com.cdac.Acts.entities.Role;
+
 import lombok.Data;
 
-// This class is used to map the sign up request JSON to a Java object
 @Data
 public class SignUpRequest {
-    
+
+
     private String username;
+
     private String password;
+
     private String fullName;
+
     private Role role;
-    
-    // Constructor
+
     public SignUpRequest() {
     }
 
-    // Public constructor
     public SignUpRequest(String username, String password, String fullName) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
     }
-    //GETTER and SETTER
+
     public String getUsername() {
         return username;
     }

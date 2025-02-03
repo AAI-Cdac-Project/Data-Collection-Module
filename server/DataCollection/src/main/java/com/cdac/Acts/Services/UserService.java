@@ -1,10 +1,11 @@
-package com.cdac.Acts.Services;
+package com.cdac.Acts.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import com.cdac.Acts.config.JWTProvider;
 import com.cdac.Acts.repository.UserRepository;
 import com.cdac.Acts.dto.LoginRequest;
@@ -12,9 +13,9 @@ import com.cdac.Acts.dto.LoginResponse;
 import com.cdac.Acts.dto.SignUpRequest;
 import com.cdac.Acts.entities.Role;
 import com.cdac.Acts.entities.User;
+
 import java.time.LocalDateTime;
 
-//Service to Handles user registration, login, updating user details, and retrieving user data by ID.
 @Service
 public class UserService {
 
@@ -89,7 +90,7 @@ public class UserService {
         // Generate a JWT token
         String token = JWTProvider.generateToken(username, user.getRole().name());
 
-        return new LoginResponse(token, username, user.getRole().name());
+        return new LoginResponse(token, username, user.getRole().name(),user.getUserId());
         
     }
 }

@@ -2,7 +2,10 @@ package com.cdac.Acts.entities;
 
 import java.time.LocalDateTime;
 
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,6 +25,9 @@ public class Sentence {
     private byte sourcelanguageId;
 
     private byte targetlanguageId;
+    
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.PENDING;
     
     private LocalDateTime createdAt;
 
@@ -80,9 +86,18 @@ public class Sentence {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
+	public Status getStatus() {
+		return status;
+	}
 
+
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	public Sentence(Long sentenceId, String originalSentence, String translation, Long documentId, byte sourcelanguageId,byte targetlanguageId,
-			LocalDateTime createdAt) {
+			LocalDateTime createdAt,Status status) {
 		super();
 		this.sentenceId = sentenceId;
 		this.originalSentence = originalSentence;
@@ -91,6 +106,7 @@ public class Sentence {
 		this.sourcelanguageId = sourcelanguageId;
 		this.targetlanguageId = targetlanguageId;
 		this.createdAt = createdAt;
+		this.status = status;
 	}
 
 	public Sentence() {

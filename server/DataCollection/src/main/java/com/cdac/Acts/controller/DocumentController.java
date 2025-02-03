@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cdac.Acts.Services.DocumentService;
+import com.cdac.Acts.services.DocumentService;
 import com.cdac.Acts.entities.Document;
 
 import java.util.List;
@@ -41,10 +41,14 @@ public class DocumentController {
     public ResponseEntity<String> deleteDocument(@PathVariable Long documentId) {
         return documentService.deleteDocument(documentId);
     }
-
+ // Get all documents for a user
+    @GetMapping("/username/{userName}")
+    public ResponseEntity<List<Document>> getDocumentsByUserName(@PathVariable String userName) {
+        return documentService.getDocumentsByUserName(userName);
+    }
     // Get all documents for a user
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Document>> getDocumentsByUserId(@PathVariable int userId) {
+    public ResponseEntity<List<Document>> getDocumentsByUserId(@PathVariable Long userId) {
         return documentService.getDocumentsByUserId(userId);
     }
 }

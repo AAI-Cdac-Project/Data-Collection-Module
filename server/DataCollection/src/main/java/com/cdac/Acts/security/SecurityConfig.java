@@ -24,10 +24,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    // Injecting JwtAuthenticationFilter and CustomDBBasedUserDetailsService
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomDBBasedUserDetailsService customUserDetailsService;
-    
+
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, CustomDBBasedUserDetailsService customUserDetailsService) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customUserDetailsService = customUserDetailsService;
@@ -51,7 +51,7 @@ public class SecurityConfig {
         return authProvider;
     }
 
-    //  Add CORS directly to Spring Security
+    // ✅ Add CORS directly to Spring Security
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -72,7 +72,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //  CORS Configuration to allow all origins
+    // ✅ CORS Configuration to allow all origins
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -86,4 +86,20 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    // ✅ WebMvcConfigurer to ensure CORS works globally
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**")
+//                        .allowedOrigins("*")  // Allow all origins
+//                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Explicit methods
+//                        .allowedHeaders("*")  // Allow all headers
+//                        .exposedHeaders("Authorization")  // Expose Authorization header
+//                        .maxAge(3600);  // 1 hour max age
+//            }
+//        };
+//    }
 }

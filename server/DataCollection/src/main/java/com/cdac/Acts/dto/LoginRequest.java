@@ -1,8 +1,11 @@
 package com.cdac.Acts.dto;
 
+
 public class LoginRequest {
-    // This class is used to map the login request JSON to a Java object
+
+    
     private String username;
+    
     private String password;
 
     // Getters and Setters

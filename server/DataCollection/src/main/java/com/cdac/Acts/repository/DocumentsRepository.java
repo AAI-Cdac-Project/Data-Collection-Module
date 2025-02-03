@@ -9,5 +9,5 @@ import com.cdac.Acts.entities.Document;
 
 @Repository
 public interface DocumentsRepository extends JpaRepository<Document, Long> {
-    List<Document> findByUserId(int userId);
+    List<Document> findByUserId(Long userId);
 }

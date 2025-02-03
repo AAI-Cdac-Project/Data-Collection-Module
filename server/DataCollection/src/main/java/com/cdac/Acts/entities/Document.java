@@ -130,10 +130,4 @@ public class Document {
 	public void setVerifierId(Long verifierId) {
 		this.verifierId = verifierId;
 	}
-
-
-
-	public enum Status {
-        PENDING, VERIFIED, REJECTED
-    }
 }

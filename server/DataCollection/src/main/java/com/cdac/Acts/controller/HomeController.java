@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//Defines API endpoints with different access levels for public, authenticated users, and admin
+
 @RestController
 @RequestMapping("/api")
 public class HomeController {

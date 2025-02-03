@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cdac.Acts.Services.SentenceService;
+import com.cdac.Acts.services.SentenceService;
 import com.cdac.Acts.entities.Sentence;
 
 import java.util.List;
