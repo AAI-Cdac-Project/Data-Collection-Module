@@ -1,75 +1,77 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login";
 import UserDashboard from "./pages/UserDashboard";
 import VerifierDashboard from "./pages/VerifierDashBoard";
 import AdminDashboard from "./pages/AdminDashboard";
-import FileUploadPage from "./pages/FileUploadPage";
-import UserFilesPage from "./pages/UserFilesPage";
+import FileUploadPage from "./components/User/FileUploadPage";
+import UserFilesPage from "./components/User/UserFilesPage";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
-import Registeration from "./pages/Registration";
-import FileDetailsPage from "./pages/FileDetailsPage";
+import Registration from "./pages/Registration";
+import FileDetailsPage from "./components/User/FileDetailsPage";
+import Error from "./components/Error";
+import UserDetails from "./components/User/UserDetails";
+
+const approuter = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <ProtectedRoute roles={["USER"]}>
+        <UserDashboard />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <UserFilesPage />,
+      },
+      {
+        path: "fileDetails/:documentId",
+        element: <FileDetailsPage />,
+      },
+      {
+        path: "upload",
+        element: <FileUploadPage />,
+      },
+      {
+        path: "userdetails",
+        element: <UserDetails />,
+      },
+    ],
+    errorElement: <Error />,
+  },
+  {
+    path: "/signin",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Registration />,
+  },
+  {
+    path: "/verifier",
+    element: (
+      <ProtectedRoute roles={["VERIFIER"]}>
+        <VerifierDashboard />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute roles={["ADMIN"]}>
+        <AdminDashboard />
+      </ProtectedRoute>
+    ),
+  },
+]);
 
 function App() {
   return (
-    <Router >
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signout" element={<Registeration />} />
-        <Route
-          path="/user/dashboard"
-          element={
-           // <ProtectedRoute roles={["user"]}>
-              <UserDashboard />
-           // </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/verifier/dashboard"
-          element={
-            <ProtectedRoute roles={["verifier"]}>
-              <VerifierDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute roles={["admin"]}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/user/files"
-          element={
-           // <ProtectedRoute roles={["user"]}>
-              <UserFilesPage />
-           // </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/user/fileDetails/:documentId"
-          element={
-           // <ProtectedRoute roles={["user"]}>
-              <FileDetailsPage />
-          //  </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/user/upload"
-          element={
-           // <ProtectedRoute roles={["user"]}>
-              <FileUploadPage />
-          //  </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </Router>
+    <div className="min-h-screen bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+      <RouterProvider router={approuter} />
+    </div>
   );
 }
 
 export default App;
-

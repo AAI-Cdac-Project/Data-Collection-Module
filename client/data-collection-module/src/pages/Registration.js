@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
 import { setCredentials } from "../features/auth/authSlice";
+import axios from "axios";
 
 const Registeration = () => {
   const [username, setUsername] = useState("");
   const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
+  //const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -17,16 +17,17 @@ const Registeration = () => {
     e.preventDefault();
     const User={
         "username":username,
-		"passwordHash":password,
-		"fullName":fullName,
-        "email":email
+		    "password":password,
+		    "fullName":fullName,
+       // "email":email
     }
     try {
-      const response = await api.post("/user/register", User);
-      const { token, user, role: userRole } = response.data;
-      dispatch(setCredentials({ user, token, role: userRole }));
-      if (userRole === "admin") navigate("/admin/dashboard");
-      else if (userRole === "verifier") navigate("/verifier/dashboard");
+     
+      const response =  await  axios.post("http://localhost:8080/api/user/register", User);
+      const { token, username, role } = response;
+      dispatch(setCredentials({ username, token, role }));
+      if (role === "admin") navigate("/admin/dashboard");
+      else if (role === "verifier") navigate("/verifier/dashboard");
       else navigate("/user/dashboard");
     } catch (err) {
         console.log(err);
@@ -62,7 +63,7 @@ const Registeration = () => {
               required
             />
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Email</label>
             <input
               type="email"
@@ -72,7 +73,7 @@ const Registeration = () => {
               placeholder="Enter your email"
               required
             />
-          </div>
+          </div> */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Password</label>
             <input
@@ -95,10 +96,10 @@ const Registeration = () => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/signin")}
               className="text-blue-500 hover:text-blue-600"
             >
-              Login here
+              Signin
             </button>
           </p>
         </div>
