@@ -28,7 +28,7 @@ const Registeration = () => {
       dispatch(setCredentials({ username, token, role }));
       if (role === "admin") navigate("/admin/dashboard");
       else if (role === "verifier") navigate("/verifier/dashboard");
-      else navigate("/user/dashboard");
+      else navigate("/");
     } catch (err) {
         console.log(err);
       setError("Registration failed. Please try again.");
