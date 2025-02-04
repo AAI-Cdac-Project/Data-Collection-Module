@@ -64,6 +64,7 @@ public class SecurityConfig {
                     .requestMatchers("/api/user/**").hasAuthority("USER")
                     .requestMatchers("/api/documents/**").hasAnyAuthority("USER","VERIFIER","ADMIN")
                     .requestMatchers("/api/files/**").hasAnyAuthority("USER","VERIFIER","ADMIN")
+                    .requestMatchers("/api/global/**").hasAnyAuthority("USER","VERIFIER","ADMIN")
                    // .requestMatchers("/api/users/**").hasAnyAuthority("USER","VERIFIER","ADMIN")// Protect user routes
                     .anyRequest().authenticated()  // Secure all other endpoints
              )

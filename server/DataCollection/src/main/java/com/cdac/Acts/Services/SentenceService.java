@@ -1,4 +1,4 @@
-package com.cdac.Acts.services;
+package com.cdac.Acts.Services;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +56,12 @@ public class SentenceService {
         List<Sentence> sentences = sentenceRepository.findByDocumentId(documentId);
         return sentences.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(sentences);
     }
+    
+//    public List<Sentence> search(String keyword){
+//		return sentenceRepository.searchByKeyword(keyword);	
+//    }
+    
+    
+
 }
 

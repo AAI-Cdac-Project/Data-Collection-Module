@@ -11,6 +11,7 @@ import Registration from "./pages/Registration";
 import FileDetailsPage from "./components/User/FileDetailsPage";
 import Error from "./components/Error";
 import UserDetails from "./components/User/UserDetails";
+import SearchResults from "./components/User/SearchResults";
 
 const approuter = createBrowserRouter([
   {
@@ -20,9 +21,10 @@ const approuter = createBrowserRouter([
         <UserDashboard />
       </ProtectedRoute>
     ),
+    errorElement: <Error />,  // Moved here for better error handling
     children: [
       {
-        path: "/",
+        index: true, // Correct way to set default child route
         element: <UserFilesPage />,
       },
       {
@@ -37,16 +39,21 @@ const approuter = createBrowserRouter([
         path: "userdetails",
         element: <UserDetails />,
       },
+      {
+        path: "search",
+        element: <SearchResults />, // Removed leading '/'
+      },
     ],
-    errorElement: <Error />,
   },
   {
     path: "/signin",
     element: <Login />,
+    errorElement: <Error />,
   },
   {
     path: "/signup",
     element: <Registration />,
+    errorElement: <Error />,
   },
   {
     path: "/verifier",
@@ -55,6 +62,7 @@ const approuter = createBrowserRouter([
         <VerifierDashboard />
       </ProtectedRoute>
     ),
+    errorElement: <Error />,
   },
   {
     path: "/admin",
@@ -63,6 +71,7 @@ const approuter = createBrowserRouter([
         <AdminDashboard />
       </ProtectedRoute>
     ),
+    errorElement: <Error />,
   },
 ]);
 

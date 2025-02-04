@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cdac.Acts.services.DocumentService;
+import com.cdac.Acts.Services.DocumentService;
 import com.cdac.Acts.entities.Document;
 
 import java.util.List;

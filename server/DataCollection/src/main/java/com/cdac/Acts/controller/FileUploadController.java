@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cdac.Acts.services.FileParserService;
+import com.cdac.Acts.Services.FileParserService;
+
 
 
 @RestController
