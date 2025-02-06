@@ -13,6 +13,7 @@ import Error from "./components/Error";
 import UserDetails from "./components/User/UserDetails";
 import AuthContainer from "./pages/AuthContainer";
 import SearchResults from "./components/User/SearchResults";
+import ForgetPassword from "./components/ForgetPassword"
 
 const approuter = createBrowserRouter([
   {
@@ -49,14 +50,20 @@ const approuter = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthContainer />,
-  },
-  {
-    path: "/signin",
-    element: <Login />,
-  },
-  {
-    path: "/signup",
-    element: <Registration />,
+    children: [
+      {
+        path: "", // Default route ("/auth")
+        element: <Login />,
+      },
+      {
+        path: "signup", // Will resolve to "/auth/signup"
+        element: <Registration />,
+      },
+      {
+        path: "forgetpassword", // Will resolve to "/auth/signup"
+        element: <ForgetPassword/>,
+      },
+    ],
   },
   {
     path: "/verifier",

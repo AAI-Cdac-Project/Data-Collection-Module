@@ -56,7 +56,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs
             .authorizeHttpRequests(authz -> authz
                     .requestMatchers("/api/user/register", 
-                                    "/api/auth/login",
+                                    "/api/auth/**",
                                     "/api/user/verify-account" ).permitAll()  // Allow public endpoints
                     .requestMatchers("/api/admin/**").hasAuthority("ADMIN")  // Protect admin routes
                     .requestMatchers("/api/verifier/**").hasAuthority("VERIFIER")  // Protect verifier routes

@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../features/auth/authSlice";
-import LogoutIcon from "../Icons/LogoutIcon.png";
-import LoginIcon from "../Icons/login.png";
-import RegisterIcon from "../Icons/userRegistration.png";
+import { FaSignOutAlt, FaSignInAlt, FaUserPlus, FaBook } from "react-icons/fa";
+import DictionaryModal from "./DictionaryModal"; 
+import AnuvaadLogo from "../Icons/AnuvaadKoshLogo.svg";
 
 const Navbar = () => {
-  const { isAuthenticated, role } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isDictionaryOpen, setDictionaryOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -17,52 +18,53 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-900 text-gray-100 shadow-lg fixed w-full z-50">
+    <nav className="bg-gray-800 text-white shadow-md fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* App Logo / Title */}
-        <div className="text-2xl font-semibold tracking-wide">
-          <Link
-            to={
-              role === "ADMIN"
-                ? "/admin/dashboard"
-                : role === "VERIFIER"
-                ? "/verifier/dashboard"
-                : "/"
-            }
-            className="text-blue-400 hover:text-blue-500 transition duration-300"
-          >
-            Data-Collection-Module
-          </Link>
+        {/* Logo */}
+        <div className="flex items-center space-x-3">
+          <img src={AnuvaadLogo} alt="Anuvaad Logo" className="w-12 h-12" />
+          <span className="text-2xl font-bold tracking-wide">AnuvaadKosh</span>
         </div>
+
+        {/* Buttons */}
         <div className="flex items-center space-x-4">
+          {/* Dictionary Button */}
+          <button
+            onClick={() => setDictionaryOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg transition duration-300 transform hover:scale-105"
+          >
+            <FaBook className="text-lg" /> Dictionary
+          </button>
+
+          {/* Auth Buttons */}
           {isAuthenticated ? (
             <button
               onClick={handleLogout}
-              className="flex items-center px-4 py-2 bg-red-300 hover:bg-red-400 text-white rounded-lg transition duration-300 transform hover:scale-105"
+              className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition duration-300 transform hover:scale-105"
             >
-              <img className="h-5 w-5 mr-2" src={LogoutIcon} alt="Logout" />
-              Logout
+              <FaSignOutAlt className="text-lg" /> Logout
             </button>
           ) : (
             <>
               <Link
                 to="/signin"
-                className="flex items-center px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-300 transform hover:scale-105"
+                className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition duration-300 transform hover:scale-105"
               >
-                <img className="h-5 w-5 mr-2" src={LoginIcon} alt="Login" />
-                Login
+                <FaSignInAlt className="text-lg" /> Login
               </Link>
               <Link
                 to="/signup"
-                className="flex items-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition duration-300 transform hover:scale-105"
+                className="flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition duration-300 transform hover:scale-105"
               >
-                <img className="h-5 w-5 mr-2" src={RegisterIcon} alt="Register" />
-                Register
+                <FaUserPlus className="text-lg" /> Register
               </Link>
             </>
           )}
         </div>
       </div>
+
+      {/* Dictionary Modal */}
+      {isDictionaryOpen && <DictionaryModal onClose={() => setDictionaryOpen(false)} />}
     </nav>
   );
 };

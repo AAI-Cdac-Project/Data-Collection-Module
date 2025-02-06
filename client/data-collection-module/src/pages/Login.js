@@ -34,8 +34,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md w-full">
+    <>
+    {/* <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors"> */}
+      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg  max-w-md w-full">
         <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
           Login
         </h2>
@@ -78,15 +79,26 @@ const Login = () => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             New user?{" "}
             <button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/auth/signup")}
               className="text-blue-500 hover:text-blue-600"
             >
               Register as User
             </button>
           </p>
         </div>
+        <div className="mt-4 text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            <button
+              onClick={() => navigate("/auth/forgetpassword")}
+              className="text-blue-500 hover:text-blue-600"
+            >
+              Forget Password
+            </button>
+          </p>
+        </div>
       </div>
-    </div>
+    {/* </div> */}
+    </>
   );
 };
 

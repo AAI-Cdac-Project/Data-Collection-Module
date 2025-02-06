@@ -6,11 +6,11 @@ const ProtectedRoute = ({ children, roles }) => {
   
   const { role, token } = useSelector((state) => state.auth);
   if (!token) {
-    return <Navigate to="/signin" />;
+    return <Navigate to="/auth" />;
   }
 
   if (!roles.includes(role)) {
-    return <Navigate to="/" />;
+    return <Navigate to="/auth" />;
   }
 
   return children;

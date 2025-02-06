@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import api from "../../services/api";
 import { useSelector } from "react-redux";
+import { FaUserEdit, FaSave, FaTimes, FaUser } from "react-icons/fa";
 
 const UserDetails = () => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [editing, setEditing] = useState(false);
+  const userInfo = useSelector(state => state.auth);
+  const { userId, email, role } = userInfo;
+  const [fullName, setFullName] = useState(userInfo.fullName);
 
-  const userId = useSelector(state=>state.auth.userId);
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        console.log(userId);
-        const response = await api.get(`/user/${userId}`);
-        setUser(response.data);
-      } catch (err) {
-        console.error("Error fetching user details:", err);
-        setError("Failed to fetch user details. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserDetails();
-  }, [userId]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-xl font-semibold text-gray-700">Loading...</div>
-      </div>
-    );
-  }
+  const handleEdit = async () => {
+    try {
+      const response = await api.put(`/user/updateUserFullname/${userId}`, { fullName });
+      setFullName(response.data.fullName);
+      setEditing(false);
+    } catch (err) {
+      setError("Failed to update details. Please try again later.");
+    }
+  };
 
   if (error) {
     return (
@@ -43,35 +30,62 @@ const UserDetails = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-8">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">User Details</h1>
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg border border-gray-200">
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold text-gray-700">
-            <span className="text-gray-900">Full Name:</span> {user?.fullName}
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg border border-gray-200">
+        <div className="flex flex-col items-center mb-6">
+          <FaUser className="text-gray-700 text-6xl mb-2" />
+          <h1 className="text-2xl font-bold text-gray-800">User Details</h1>
+        </div>
+
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-gray-700 flex items-center">
+            <span className="text-gray-900 mr-2">Full Name:</span>
+            {editing ? (
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="border border-gray-300 rounded px-2 py-1 text-gray-700 focus:ring-2 focus:ring-blue-400"
+              />
+            ) : (
+              <span>{fullName}</span>
+            )}
+            {!editing && (
+              <button
+                onClick={() => setEditing(true)}
+                className="ml-2 text-blue-500 hover:text-blue-700 transition"
+              >
+                <FaUserEdit />
+              </button>
+            )}
           </h2>
         </div>
+
         <div className="mb-4">
           <h2 className="text-lg font-semibold text-gray-700">
-            <span className="text-gray-900">Username:</span> {user?.username}
+            <span className="text-gray-900">Email:</span> {email}
           </h2>
         </div>
-        <div className="mb-4">
+
+        <div className="mb-6">
           <h2 className="text-lg font-semibold text-gray-700">
-            <span className="text-gray-900">Role:</span> {user?.role}
+            <span className="text-gray-900">Role:</span> {role}
           </h2>
         </div>
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold text-gray-700">
-            <span className="text-gray-900">Active Status:</span>{" "}
-            {user?.isActive ? "Active" : "Inactive"}
-          </h2>
-        </div>
-        {user?.refreshToken && (
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold text-gray-700">
-              <span className="text-gray-900">Refresh Token:</span>{" "}
-              {user?.refreshToken}
-            </h2>
+
+        {editing && (
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={handleEdit}
+              className="px-4 py-2 bg-green-500 text-white rounded-lg flex items-center hover:bg-green-600 transition"
+            >
+              <FaSave className="mr-2" /> Save
+            </button>
+            <button
+              onClick={() => setEditing(false)}
+              className="px-4 py-2 bg-gray-400 text-white rounded-lg flex items-center hover:bg-gray-500 transition"
+            >
+              <FaTimes className="mr-2" /> Cancel
+            </button>
           </div>
         )}
       </div>

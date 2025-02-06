@@ -17,6 +17,7 @@ import com.cdac.Acts.dto.SignUpRequest;
 import com.cdac.Acts.entities.User;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -32,26 +33,6 @@ public class UserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
-    // Register a new user(Sign Up Method For User )
-    // public ResponseEntity<User> registerUser(SignUpRequest signUpRequest) {
-        
-    //     if (userRepository.findByEmail(signUpRequest.getEmail()) != null) {
-    //         return ResponseEntity.badRequest().body(null); // Email already exists
-    //     }
-
-    //     String encodePassword = passwordEncoder.encode(signUpRequest.getPassword());
-    //     User user = new User();
-    //     user.setEmail(signUpRequest.getEmail());
-    //     user.setPassword(encodePassword);
-    //     user.setFullName(signUpRequest.getFullName());
-    //     user.setRole(Role.USER);
-
-    //     user.setCreatedAt(LocalDateTime.now());
-    //     user.setUpdatedAt(LocalDateTime.now());
-    //     User savedUser = userRepository.save(user);
-    //     return ResponseEntity.status(201).body(savedUser);
-    // }
     public ResponseEntity<String> registerUser(SignUpRequest signUpRequest) {
     	if (userRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {   		
     	         return ResponseEntity.badRequest().body("User Already Existed!"); // Email already exists
@@ -72,7 +53,20 @@ public class UserService {
         return ResponseEntity.status(201).body("User registration successful");
       }
     
-    
+    public boolean resetPassword(String email, String otp, String newPassword, OtpService otpService) {
+        if (!otpService.verifyOtp(email, otp)) {
+            return false;
+        }
+
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            User existingUser = user.get();
+            existingUser.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(existingUser);
+            return true;
+        }
+        return false;
+    }
     
     // Verify account
       public String verifyAccount(String email, String otp) {
@@ -108,5 +102,18 @@ public class UserService {
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    
+ // Edit userName details
+    public ResponseEntity<User> updateUserFullName(Long userId, User userDetails) {
+        return userRepository.findById(userId)
+                .map(existingUser -> {                   
+                    existingUser.setFullName(userDetails.getFullName());
+                    existingUser.setUpdatedAt(LocalDateTime.now());
+                    User updatedUser = userRepository.save(existingUser);
+                    return ResponseEntity.ok(updatedUser);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
 
 }

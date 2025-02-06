@@ -13,7 +13,7 @@ const UserDashboard = () => {
       {/* Main Content Section */}
       <div className="flex flex-grow pt-16">
         {/* Sidebar Section */}
-        <aside className="w-1/4 p-6 bg-white shadow-lg border-r border-gray-200">
+        <aside className="w-1/4 p-8 bg-white shadow-lg border-r border-gray-200">
           <FileList />
         </aside>
 

@@ -40,4 +40,9 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User userDetails) {
         return userService.updateUser(userId, userDetails);
     }
+ // Edit user details
+    @PutMapping("/updateUserFullname/{userId}")
+    public ResponseEntity<User> updateUserFullname(@PathVariable Long userId, @RequestBody User userDetails) {
+        return userService.updateUserFullName(userId, userDetails);
+    }
 }
