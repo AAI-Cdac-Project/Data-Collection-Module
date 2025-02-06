@@ -64,7 +64,6 @@ public class SecurityConfig {
                     .requestMatchers("/api/documents/**").hasAnyAuthority("USER","VERIFIER","ADMIN")
                     .requestMatchers("/api/files/**").hasAnyAuthority("USER","VERIFIER","ADMIN")
                     .requestMatchers("/api/global/**").hasAnyAuthority("USER","VERIFIER","ADMIN")
-                   // .requestMatchers("/api/users/**").hasAnyAuthority("USER","VERIFIER","ADMIN")// Protect user routes
                     .anyRequest().authenticated()  // Secure all other endpoints
              )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
@@ -86,5 +85,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
 }

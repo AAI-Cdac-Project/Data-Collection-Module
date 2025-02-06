@@ -19,7 +19,7 @@ public class UserController {
     // Register a new user
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody SignUpRequest signUpRequest) {
-        return new ResponseEntity<>(userService.registerUser(signUpRequest), HttpStatus.OK);
+        return userService.registerUser(signUpRequest);
     }
 
     @GetMapping("/verify-account")

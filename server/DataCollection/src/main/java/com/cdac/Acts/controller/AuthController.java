@@ -3,6 +3,7 @@ package com.cdac.Acts.controller;
 
 import com.cdac.Acts.dto.LoginRequest;
 import com.cdac.Acts.dto.LoginResponse;
+import com.cdac.Acts.dto.OtpVerificationRequest;
 import com.cdac.Acts.Services.AuthService;
 import com.cdac.Acts.Services.UserService;
 
@@ -22,11 +23,25 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @PutMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         return new ResponseEntity<>(authService.login(loginRequest), HttpStatus.OK);
     }
     
+    // @GetMapping("/sendOtp")
+    // public ResponseEntity<String> sendOtp(@RequestBody String email) {
+    //     String response = authService.sendOtp(email);
+    //     return ResponseEntity.ok(response);
+    // }
+
+    //Enpoint for verify Otp Authentication
+
+    // @PostMapping("/verifyOtp")
+    // public ResponseEntity<String> verifyOtp(@RequestBody OtpVerificationRequest otpVerificationRequest) {
+    //     String response = authService.verifyOtp(otpVerificationRequest);
+
+    //     return ResponseEntity.ok(response);
+    // }
 }
 
 

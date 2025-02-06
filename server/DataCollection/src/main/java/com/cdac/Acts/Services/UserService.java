@@ -52,7 +52,10 @@ public class UserService {
     //     User savedUser = userRepository.save(user);
     //     return ResponseEntity.status(201).body(savedUser);
     // }
-    public String registerUser(SignUpRequest signUpRequest) {
+    public ResponseEntity<String> registerUser(SignUpRequest signUpRequest) {
+    	if (userRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {   		
+    	         return ResponseEntity.badRequest().body("User Already Existed!"); // Email already exists
+    	}
         String otp = otpUtil.generateOtp();
         try {
           emailUtil.sendOtpEmail(signUpRequest.getEmail(), otp);
@@ -62,13 +65,15 @@ public class UserService {
         User user = new User();
         String encodePassword = passwordEncoder.encode(signUpRequest.getPassword());
         user.setFullName(signUpRequest.getFullName());
-        user.setEmail(signUpRequest.getEmail());
+        user.setEmail(signUpRequest.getEmail());      
         user.setPassword(encodePassword);
         user.setOtp(otp);
         userRepository.save(user);
-        return "User registration successful";
+        return ResponseEntity.status(201).body("User registration successful");
       }
-
+    
+    
+    
     // Verify account
       public String verifyAccount(String email, String otp) {
         User user = userRepository.findByEmail(email)
