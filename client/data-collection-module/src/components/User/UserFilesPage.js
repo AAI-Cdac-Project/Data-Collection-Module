@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../../services/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setDocuments } from "../../features/document/documentSlice";
 
 const UserFilesPage = () => {
-  const [documents, setDocuments] = useState(null); // Start with null to distinguish between loading and empty states
+  const documents=useSelector(state=>state.document.documents);
   const [isLoading, setIsLoading] = useState(true); // Loading state
   const userId = useSelector(state=>state.auth.userId);
-
+  const dispatch=useDispatch();
   useEffect(() => {
-    setIsLoading(true); // Show spinner during fetch
+    setIsLoading(true); 
     api
       .get(`/documents/user/${userId}`)
       .then((response) => {
-        setDocuments(response.data || []); // Ensure documents is always an array
+          dispatch(setDocuments(response.data));
       })
       .catch((error) => {
         console.error("Error fetching documents:", error);
-        setDocuments([]); // Default to an empty array on error
+        setDocuments([]); 
       })
-      .finally(() => setIsLoading(false)); // Hide spinner after fetch
-  }, []);
+      .finally(() => setIsLoading(false)); 
+  }, [userId,dispatch]);
 
   const getStatusColor = (status) => {
     switch (status) {

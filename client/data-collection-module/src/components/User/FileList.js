@@ -1,30 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import api from "../../services/api";
 import { useSelector } from "react-redux";
 
 const FileList = () => {
-  const [files, setFiles] = useState([]);
-  const userId = useSelector(state=>state.auth.userId);
-
-  useEffect(() => {
-    const fetchFiles = async () => {
-      try {
-        const response = await api.get(`/documents/user/${userId}`);
-        setFiles(response.data || []);
-      } catch (error) {
-        console.error("Error fetching files:", error);
-      }
-    };
-
-    if (userId) {
-      fetchFiles();
-    }
-  }, [userId]);
-
+  const files=useSelector(state=>state.document.documents);
+  const userInfo=useSelector(state=>state.auth);
   return (
     <div className="flex flex-col p-4 bg-gray-100 shadow-md rounded-lg w-full max-w-md">
-      <h1 className="text-2xl font-semibold mb-4 text-gray-800">All Files</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-gray-800">Welcome {userInfo?.fullName}</h1>
       {files.length > 0 ? (
         <ul className="list-disc pl-5 space-y-2">
           {files.map((file) => (

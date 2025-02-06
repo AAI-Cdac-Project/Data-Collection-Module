@@ -4,9 +4,10 @@ import { jwtDecode } from "jwt-decode";
 const initialState = {
   isAuthenticated:false,
   userId:null,
-  user: null,
+  email: null,
   token: null,
   role: null,
+  fullName:null,
 };
 
 const authSlice = createSlice({
@@ -14,22 +15,23 @@ const authSlice = createSlice({
   initialState:initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { token, username, role,userId } = action.payload;
-      console.log("from authslice","token",token,"username",username,"role",role);
+      const { token, email, role, userId , fullName} = action.payload;
       if (token) {
         const decodedToken = jwtDecode(token);
-        state.user = decodedToken.user || username;
+        state.email = decodedToken.user || email;
         state.role = decodedToken.role || role;
         state.userId = userId;
+        state.fullName=fullName
         state.token = token;
         state.isAuthenticated=true;
         // Store token in localStorage
         localStorage.setItem("token",token);
       } else {
         // Handle when token is null
-        state.user = username;
+        state.user = email;
         state.userId = userId;
         state.role = role;
+        state.fullName=fullName;
         state.token = null;
         state.isAuthenticated=true;
         localStorage.removeItem("token");
@@ -39,6 +41,7 @@ const authSlice = createSlice({
       state.user = null;
       state.role = null;
       state.token = null;
+      state.fullName=null;
       state.isAuthenticated=false;
       localStorage.removeItem("token");
     },
