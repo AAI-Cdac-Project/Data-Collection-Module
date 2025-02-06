@@ -1,11 +1,10 @@
 package com.cdac.Acts.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.cdac.Acts.Services.UserService;
-import com.cdac.Acts.dto.LoginRequest;
 import com.cdac.Acts.dto.SignUpRequest;
 import com.cdac.Acts.entities.User;
 
@@ -19,16 +18,16 @@ public class UserController {
 
     // Register a new user
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody SignUpRequest signUpRequest ) {
-        return userService.registerUser(signUpRequest);
+    public ResponseEntity<String> registerUser(@RequestBody SignUpRequest signUpRequest) {
+        return new ResponseEntity<>(userService.registerUser(signUpRequest), HttpStatus.OK);
     }
 
-    //Sign In a new user
-    @PostMapping("/signin")
-    public ResponseEntity<?> signInUser(@RequestBody LoginRequest loginRequest ) {
-        Object response = userService.signInUser(loginRequest);
-        return ResponseEntity.ok(response);
+    @GetMapping("/verify-account")
+    public ResponseEntity<String> verifyAccount(@RequestParam String email,
+            @RequestParam String otp) {
+        return new ResponseEntity<>(userService.verifyAccount(email, otp), HttpStatus.OK);
     }
+    
 
     // Get user details by ID
     @GetMapping("/{userId}")

@@ -14,9 +14,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import com.cdac.Acts.config.CustomDBBasedUserDetailsService;
 
 import java.util.List;
@@ -58,7 +55,9 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Apply CORS globally
             .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs
             .authorizeHttpRequests(authz -> authz
-                    .requestMatchers("/api/user/register", "/api/user/signin").permitAll()  // Allow public endpoints
+                    .requestMatchers("/api/user/register", 
+                                    "/api/auth/login",
+                                    "/api/user/verify-account" ).permitAll()  // Allow public endpoints
                     .requestMatchers("/api/admin/**").hasAuthority("ADMIN")  // Protect admin routes
                     .requestMatchers("/api/verifier/**").hasAuthority("VERIFIER")  // Protect verifier routes
                     .requestMatchers("/api/user/**").hasAuthority("USER")
@@ -88,19 +87,4 @@ public class SecurityConfig {
         return source;
     }
 
-    // ✅ WebMvcConfigurer to ensure CORS works globally
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**")
-//                        .allowedOrigins("*")  // Allow all origins
-//                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Explicit methods
-//                        .allowedHeaders("*")  // Allow all headers
-//                        .exposedHeaders("Authorization")  // Expose Authorization header
-//                        .maxAge(3600);  // 1 hour max age
-//            }
-//        };
-//    }
 }

@@ -8,52 +8,44 @@ import lombok.Data;
 public class SignUpRequest {
 
 
-    private String username;
+    private String email;
 
     private String password;
 
     private String fullName;
 
-    private Role role;
 
     public SignUpRequest() {
     }
 
-    public SignUpRequest(String username, String password, String fullName) {
-        this.username = username;
+    public SignUpRequest(String email, String password, String fullName) {
+        this.email = email;
         this.password = password;
         this.fullName = fullName;
     }
 
-    public String getUsername() {
-        return username;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getFullName() {
-        return fullName;
-    }
+	public String getFullName() {
+		return fullName;
+	}
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }  
-    
-    public Role getRole() {
-        return role;
-    }
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

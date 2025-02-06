@@ -33,8 +33,6 @@ public class Document {
     public Document() {
 	}
 
-
-
 	public Document(Long documentId, Long userId, String fileName, String filePath, LocalDateTime uploadDate,
 			Status status, Long verifierId) {
 		super();

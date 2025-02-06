@@ -27,8 +27,6 @@ public class FileParserService {
     @Autowired
     private DocumentsRepository documentsRepository;
 
-    @Autowired
-    private LanguageRepository languageRepository;
 
     public void processFile(MultipartFile file, Long userId, Byte sourceLanguageId, Byte targetLanguageId) throws Exception {
         // Save the document metadata

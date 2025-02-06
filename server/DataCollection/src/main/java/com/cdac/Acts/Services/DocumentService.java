@@ -3,6 +3,7 @@ package com.cdac.Acts.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.cdac.Acts.repository.DocumentsRepository;
@@ -61,8 +62,9 @@ public class DocumentService {
         return documents.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(documents);
     }
 
-	public ResponseEntity<List<Document>> getDocumentsByUserName(String userName) {
-		User user=userRepository.findByUsername(userName);
+	public ResponseEntity<List<Document>> getDocumentsByUserName(String email) {
+		User user=userRepository.findByEmail(email)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 		List<Document> documents = documentRepository.findByUserId(user.getUserId());
         return documents.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(documents);
 	}

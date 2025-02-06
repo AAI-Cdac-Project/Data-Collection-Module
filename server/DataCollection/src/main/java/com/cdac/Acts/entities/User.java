@@ -1,6 +1,8 @@
 package com.cdac.Acts.entities;
 
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,15 +10,23 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    private String username;
+    private String email;
 
     private String password;
 
@@ -25,13 +35,24 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
-    private String refreshToken;
+    private boolean isVerified = false;
 
-    private boolean isActive = true;
+	@Column(nullable = true)
+    private String otp;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+	//getter for isverified
+	public boolean getIsVerified() {
+		return isVerified ;
+	}
+
+	//setter for isVerified
+	public void setIsVerified(boolean isVerified) {
+		this.isVerified = isVerified;
+	}
 
 	public Long getUserId() {
 		return userId;
@@ -41,12 +62,12 @@ public class User {
 		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -73,56 +94,34 @@ public class User {
 		this.role = role;
 	}
 
-	public String getRefreshToken() {
-		return refreshToken;
+	public String getOtp() {
+		return otp;
 	}
 
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setOtp(String otp) {
+		this.otp = otp;
 	}
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public User(Long userId, String username, String password, String fullName, Role role, String refreshToken,
-			boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		super();
-		this.userId = userId;
-		this.username = username;
-		this.password = password;
-		this.fullName = fullName;
-		this.role = role;
-		this.refreshToken = refreshToken;
-		this.isActive = isActive;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+	public void setVerified(boolean isVerified) {
+		this.isVerified = isVerified;
 	}
-
-	public User() {
-	}
-
-    
+	
     
 }
 
