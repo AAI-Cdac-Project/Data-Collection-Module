@@ -57,7 +57,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                     .requestMatchers("/api/user/register", 
                                     "/api/auth/**",
-                                    "/api/user/verify-account" ).permitAll()  // Allow public endpoints
+                                    "/api/user/verify-account",
+                                    "/images/anuvaadkosh-logo.png" ).permitAll()  // Allow public endpoints
                     .requestMatchers("/api/admin/**").hasAuthority("ADMIN")  // Protect admin routes
                     .requestMatchers("/api/verifier/**").hasAuthority("VERIFIER")  // Protect verifier routes
                     .requestMatchers("/api/user/**").hasAuthority("USER")

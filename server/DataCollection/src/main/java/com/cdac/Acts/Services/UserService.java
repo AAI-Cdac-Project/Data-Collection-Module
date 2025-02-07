@@ -75,7 +75,7 @@ public class UserService {
         if (user.getOtp().equals(otp)) {
           user.setIsVerified(true);
           userRepository.save(user);
-          return "OTP verified you can login";
+          return "OTP verified Successfully...! You can now Login with new Credentials.";
         }
         //wrong OTp case - in our project need to change
         return "You cannot login";

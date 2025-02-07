@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class OtpToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

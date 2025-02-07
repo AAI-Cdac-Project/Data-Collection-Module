@@ -26,8 +26,10 @@ public class InitialAdminSetup {
                 admin.setEmail("admin@gmail.com"); // Set a default username
                 admin.setPassword(passwordEncoder.encode("admin123")); // Set a default password
                 admin.setRole(Role.ADMIN); // Set role to ADMIN
+                admin.setFullName("ADMIN");
+                admin.setVerified(true);
                 userRepository.save(admin);
-                System.out.println("Initial admin user created with username 'admin' and password 'admin123'");
+                System.out.println("Initial admin user created with Gmail 'admin@gmail.com' and password 'admin123'");
             }
         };
     }
