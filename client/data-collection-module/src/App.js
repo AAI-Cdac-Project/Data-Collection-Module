@@ -13,8 +13,11 @@ import Error from "./components/Error";
 import UserDetails from "./components/User/UserDetails";
 import AuthContainer from "./pages/AuthContainer";
 import SearchResults from "./components/User/SearchResults";
-import ForgetPassword from "./components/ForgetPassword"
-
+import ForgetPassword from "./components/ForgetPassword";
+import VerifierFilesPage from "./components/verifier/VerifierFilesPage";
+import VerifierDetailsPage from "./components/verifier/VerifierDetailsPage";
+import VerifierSideBar from "./components/verifier/VerifierSideBar";
+import VerifierDetails from "./components/User/UserDetails";
 const approuter = createBrowserRouter([
   {
     path: "/",
@@ -60,19 +63,47 @@ const approuter = createBrowserRouter([
         element: <Registration />,
       },
       {
-        path: "forgetpassword", // Will resolve to "/auth/signup"
-        element: <ForgetPassword/>,
+        path: "forgetpassword", // Will resolve to "/auth/forgetpassword"
+        element: <ForgetPassword />,
       },
     ],
   },
   {
     path: "/verifier",
     element: (
-      <ProtectedRoute roles={["VERIFIER"]}>
+      <ProtectedRoute roles={["VERIFIER"]}> 
         <VerifierDashboard />
-      </ProtectedRoute>
+       </ProtectedRoute>
     ),
+    children: [
+      {
+        path: "dashboard",
+        element: <VerifierFilesPage />, // Display Verifier's files
+      },
+      {
+        path: "fileDetails/:documentId", 
+        element: <VerifierDetailsPage/>, // Verifier can view file details too
+      },
+        {
+        path: "verifierdetails",
+        element: <VerifierDetails/>,
+      },   {
+      path: ":status", // single dynamic parameter
+      element: (
+        <div className="flex">
+          <div className="w-1/4">
+            <VerifierSideBar />
+          </div>
+          <div className="w-3/4">
+            {/* Add the content based on the status */}
+          </div>
+        </div>
+      ),
+    },
+    ],
+    errorElement: <Error />,
   },
+   
   {
     path: "/admin",
     element: (

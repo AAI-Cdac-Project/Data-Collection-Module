@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cdac.Acts</groupId>
-	<artifactId>DataCollection</artifactId>
+	<artifactId>DataCollection4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>DataCollection</name>
 	<description>Data Collection Module for storing Sentences and Thier Translations</description>

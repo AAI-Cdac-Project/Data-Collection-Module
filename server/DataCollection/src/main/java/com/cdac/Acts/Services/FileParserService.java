@@ -3,19 +3,25 @@ package com.cdac.Acts.Services;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cdac.Acts.repository.DocumentsRepository;
-import com.cdac.Acts.repository.LanguageRepository;
-import com.cdac.Acts.repository.SentenceRepository;
 import com.cdac.Acts.entities.Document;
+import com.cdac.Acts.entities.Role;
 import com.cdac.Acts.entities.Sentence;
+import com.cdac.Acts.repository.DocumentsRepository;
+import com.cdac.Acts.repository.SentenceRepository;
+import com.cdac.Acts.repository.UserRepository;
 
 
 @Service
@@ -27,12 +33,25 @@ public class FileParserService {
     @Autowired
     private DocumentsRepository documentsRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+    
+   public Long getRandomVerifierUserId() {
+	    List<Long> verifierUserIds = userRepository.findUserIdsByRole(Role.VERIFIER);
+        if (verifierUserIds.isEmpty()) {
+            return null; // Or throw an exception if needed
+        }
+        Random random = new Random();
+        return verifierUserIds.get(random.nextInt(verifierUserIds.size()));
 
+   }
     public void processFile(MultipartFile file, Long userId, Byte sourceLanguageId, Byte targetLanguageId) throws Exception {
         // Save the document metadata
         Document document = new Document();
         document.setUserId(userId);
         document.setFileName(file.getOriginalFilename());
+        Long verifierId=getRandomVerifierUserId();
+        document.setVerifierId(verifierId);
         documentsRepository.save(document);
 
         // Determine file type and parse the file

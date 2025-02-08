@@ -10,4 +10,5 @@ import com.cdac.Acts.entities.Document;
 @Repository
 public interface DocumentsRepository extends JpaRepository<Document, Long> {
     List<Document> findByUserId(Long userId);
+     List<Document> findByVerifierId(Long verifierId);
 }
