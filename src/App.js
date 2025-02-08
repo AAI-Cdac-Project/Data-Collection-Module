@@ -71,13 +71,13 @@ const approuter = createBrowserRouter([
   {
     path: "/verifier",
     element: (
-      // <ProtectedRoute roles={["VERIFIER"]}> 
+      <ProtectedRoute roles={["VERIFIER"]}> 
         <VerifierDashboard />
-      // </ProtectedRoute>
+       </ProtectedRoute>
     ),
     children: [
       {
-        path: "",
+        path: "dashboard",
         element: <VerifierFilesPage />, // Display Verifier's files
       },
       {

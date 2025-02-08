@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import api from "../../services/api";
+import { useSelector } from "react-redux";
 
 const VerifierSideBar = () => {
   const { status } = useParams(); // Get the status (pending or verified) from the URL
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-   const verifierId = useSelector(state=>state.auth.verifierId);
   // const verifierId = 4; // Static verifierId for now
-
+  const verifierId = useSelector(state=>state.auth.userId);
+  console.log(verifierId);
   // Status color mapping function
   const getStatusColor = (status) => {
     switch (status) {
