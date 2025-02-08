@@ -9,7 +9,7 @@ import com.cdac.Acts.entities.Language;
 import com.cdac.Acts.repository.LanguageRepository;
 
 @Service
-public class LanguageService {
+public class LanguageService implements ILanguageService {
 
  @Autowired
  private LanguageRepository languageRepository;  // Assuming you have a repository for Language

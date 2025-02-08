@@ -25,7 +25,7 @@ import com.cdac.Acts.repository.UserRepository;
 
 
 @Service
-public class FileParserService {
+public class FileParserService implements IFileParserService{
 
 	@Autowired
     private SentenceRepository sentencesRepository;

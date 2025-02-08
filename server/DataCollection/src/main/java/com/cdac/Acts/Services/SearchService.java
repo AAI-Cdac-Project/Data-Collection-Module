@@ -12,7 +12,7 @@ import com.cdac.Acts.repository.GlobalDatabaseRepository;
 import io.swagger.v3.oas.annotations.servers.Server;
 
 @Service
-public class SearchService {
+public class SearchService implements ISearchService{
 	
 	@Autowired
 	GlobalDatabaseRepository globaldatabaserepository;

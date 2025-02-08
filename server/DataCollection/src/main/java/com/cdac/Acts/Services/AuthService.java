@@ -13,7 +13,7 @@ import com.cdac.Acts.entities.User;
 import com.cdac.Acts.repository.UserRepository;
 
 @Service
-public class AuthService {
+public class AuthService implements IAuthService{
     @Autowired
     private UserRepository userRepository;
 

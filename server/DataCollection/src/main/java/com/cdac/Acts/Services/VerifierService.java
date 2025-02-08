@@ -12,7 +12,7 @@ import com.cdac.Acts.repository.DocumentsRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class VerifierService {
+public class VerifierService implements IVerifierService {
 
     @Autowired
     private DocumentsRepository documentRepository;

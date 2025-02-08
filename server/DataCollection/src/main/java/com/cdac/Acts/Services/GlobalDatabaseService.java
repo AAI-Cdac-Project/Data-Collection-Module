@@ -9,7 +9,7 @@ import com.cdac.Acts.repository.GlobalDatabaseRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class GlobalDatabaseService {
+public class GlobalDatabaseService implements IGlobalDatabaseService{
 
     @Autowired
     private GlobalDatabaseRepository globalDatabaseRepository;

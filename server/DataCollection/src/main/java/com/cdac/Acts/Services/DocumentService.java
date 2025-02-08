@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DocumentService {
+public class DocumentService implements IDocumentService {
 
 	@Autowired
     private UserRepository userRepository;

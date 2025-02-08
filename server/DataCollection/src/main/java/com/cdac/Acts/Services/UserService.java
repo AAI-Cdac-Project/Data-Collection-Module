@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements IUserService{
 
     @Autowired
     private UserRepository userRepository;

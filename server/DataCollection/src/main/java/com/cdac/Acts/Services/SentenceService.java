@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SentenceService {
+public class SentenceService implements ISentenceService{
 
     @Autowired
     private SentenceRepository sentenceRepository;
