@@ -7,9 +7,9 @@ import { setDocuments } from "../../features/document/documentSlice";
 const VerifierFilesPage = () => {
   const documents = useSelector((state) => state.document.documents);
   const [isLoading, setIsLoading] = useState(true); // Loading state
-//   const verifierId = useSelector((state) => state.auth.verifierId); // Assuming verifierId is stored in the Redux store
+  const verifierId = useSelector((state) => state.auth.userId); // Assuming verifierId is stored in the Redux store
   const dispatch = useDispatch();
-const verifierId = 4;
+// const verifierId = 4;
   useEffect(() => {
     setIsLoading(true);
     api
@@ -78,7 +78,7 @@ const verifierId = 4;
                 >
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <Link
-                      to={`fileDetails/${document.documentId}`}
+                      to={`/verifier/fileDetails/${document.documentId}`}
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
                       {document.documentId}
@@ -86,7 +86,7 @@ const verifierId = 4;
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <Link
-                      to={`fileDetails/${document.documentId}`}
+                      to={`/verifier/fileDetails/${document.documentId}`}
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
                       {document.fileName}
