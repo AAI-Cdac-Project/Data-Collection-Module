@@ -7,9 +7,9 @@ import { setDocuments } from "../../features/document/documentSlice";
 const VerifierFilesPage = () => {
   const documents = useSelector((state) => state.document.documents);
   const [isLoading, setIsLoading] = useState(true); // Loading state
-//   const verifierId = useSelector((state) => state.auth.verifierId); // Assuming verifierId is stored in the Redux store
+  const verifierId = useSelector((state) => state.auth.verifierId); // Assuming verifierId is stored in the Redux store
   const dispatch = useDispatch();
-const verifierId = 4;
+// const verifierId = 4;
   useEffect(() => {
     setIsLoading(true);
     api

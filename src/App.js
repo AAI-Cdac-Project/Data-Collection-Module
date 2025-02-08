@@ -17,6 +17,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import VerifierFilesPage from "./components/verifier/VerifierFilesPage";
 import VerifierDetailsPage from "./components/verifier/VerifierDetailsPage";
 import VerifierSideBar from "./components/verifier/VerifierSideBar";
+import VerifierDetails from "./components/User/UserDetails";
 const approuter = createBrowserRouter([
   {
     path: "/",
@@ -85,7 +86,7 @@ const approuter = createBrowserRouter([
       },
         {
         path: "verifierdetails",
-        element: <UserDetails />,
+        element: <VerifierDetails/>,
       },   {
       path: ":status", // single dynamic parameter
       element: (

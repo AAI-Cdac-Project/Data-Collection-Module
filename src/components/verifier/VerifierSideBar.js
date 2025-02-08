@@ -6,7 +6,8 @@ const VerifierSideBar = () => {
   const { status } = useParams(); // Get the status (pending or verified) from the URL
   const [files, setFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const verifierId = 4; // Static verifierId for now
+   const verifierId = useSelector(state=>state.auth.verifierId);
+  // const verifierId = 4; // Static verifierId for now
 
   // Status color mapping function
   const getStatusColor = (status) => {

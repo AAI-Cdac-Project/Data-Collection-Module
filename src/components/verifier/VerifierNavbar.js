@@ -27,7 +27,7 @@ const VerifierNavbar = () => {
         
         {/* Link to Verifier Details */}
         <Link
-          to="/verifierdetails"
+          to="verifierdetails"
           className="flex items-center text-gray-700 hover:text-blue-600 font-semibold transition duration-200"
         >
           <FaUser className="mr-2" /> Verifier Details
