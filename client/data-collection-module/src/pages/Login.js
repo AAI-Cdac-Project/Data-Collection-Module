@@ -23,7 +23,7 @@ const Login = () => {
         // Save credentials in Redux
         dispatch(setCredentials({ email, token, role, userId, fullName }));
         // Redirect based on role
-        if (role === "ADMIN") navigate("/admin/dashboard");
+        if (role === "ADMIN") navigate("/admin");
         else if (role === "VERIFIER") navigate("/verifier/dashboard");
         else navigate("/");
       }
