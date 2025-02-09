@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.cdac.Acts.repository.DocumentsRepository;
 import com.cdac.Acts.repository.UserRepository;
+import com.cdac.Acts.Services.ServiceImplementation.IDocumentService;
 import com.cdac.Acts.entities.Document;
 import com.cdac.Acts.entities.User;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -68,4 +71,20 @@ public class DocumentService implements IDocumentService {
 		List<Document> documents = documentRepository.findByUserId(user.getUserId());
         return documents.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(documents);
 	}
+
+    //FOR ADMIN
+    // Get total file count
+    public long getTotalFileCount() {
+        return documentRepository.count();
+    }
+
+    public List<Map<String, Object>> getDocumentStatusOverview() {
+        // Implement logic to fetch document status data
+        // Example:
+        List<Map<String, Object>> documentStatus = new ArrayList<>();
+        documentStatus.add(Map.of("name", "Pending", "value", 20L));
+        documentStatus.add(Map.of("name", "Verified", "value", 50L));
+        documentStatus.add(Map.of("name", "Rejected", "value", 30L));
+        return documentStatus;
+    }
 }

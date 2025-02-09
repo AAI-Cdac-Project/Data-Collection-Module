@@ -1,5 +1,6 @@
-package com.cdac.Acts.Services;
+package com.cdac.Acts.Services.ServiceImplementation;
 
+import com.cdac.Acts.Services.OtpService;
 import com.cdac.Acts.dto.SignUpRequest;
 import com.cdac.Acts.entities.User;
 import org.springframework.http.ResponseEntity;

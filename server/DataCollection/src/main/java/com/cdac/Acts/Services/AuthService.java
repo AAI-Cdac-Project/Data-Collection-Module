@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.cdac.Acts.Services.ServiceImplementation.IAuthService;
 import com.cdac.Acts.config.JWTProvider;
 import com.cdac.Acts.dto.LoginRequest;
 import com.cdac.Acts.dto.LoginResponse;

@@ -13,10 +13,13 @@ import com.cdac.Acts.util.OtpUtil;
 
 import jakarta.mail.MessagingException;
 
+import com.cdac.Acts.Services.ServiceImplementation.IUserService;
 import com.cdac.Acts.dto.SignUpRequest;
+import com.cdac.Acts.entities.Role;
 import com.cdac.Acts.entities.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -114,6 +117,25 @@ public class UserService implements IUserService{
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
+     //FOR ADMIN
+  
+
+// Get user details by Email
+public Optional<User> findByEmail(String Email) {
+  return userRepository.findByEmail(Email);
+}
+
+// Get total user count
+public long getTotalUserCount(Role role) {
+  return userRepository.countByRole(role);
+}
+
+// Get recently added users by role
+public List<User> getRecentUsersByRole(Role role) {
+  return userRepository.findTop10ByRoleOrderByCreatedAtDesc(role);
+}
 
 
 }

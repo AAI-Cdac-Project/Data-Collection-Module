@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.cdac.Acts.repository.SentenceRepository;
+import com.cdac.Acts.Services.ServiceImplementation.ISentenceService;
 import com.cdac.Acts.entities.Sentence;
 
 import java.util.List;

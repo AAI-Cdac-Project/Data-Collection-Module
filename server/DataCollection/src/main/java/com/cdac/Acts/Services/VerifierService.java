@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cdac.Acts.Services.ServiceImplementation.IVerifierService;
 import com.cdac.Acts.entities.Document;
 import com.cdac.Acts.entities.Status;
 import com.cdac.Acts.repository.DocumentsRepository;

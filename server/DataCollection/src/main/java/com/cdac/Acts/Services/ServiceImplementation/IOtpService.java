@@ -1,4 +1,4 @@
-package com.cdac.Acts.Services;
+package com.cdac.Acts.Services.ServiceImplementation;
 
 public interface IOtpService {
 
